@@ -1,0 +1,833 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>CCS Sit-in Monitoring System</title>
+  <link rel="stylesheet" href="style.css" />
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@600;700&family=DM+Sans:ital,opsz,wght@0,9..40,300;0,9..40,400;0,9..40,500;0,9..40,700;1,9..40,400&display=swap" rel="stylesheet"/>
+  <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+</head>
+<body>
+
+<!-- ===== LOGIN PAGE ===== -->
+<div id="loginPage" class="page active">
+  <nav class="navbar">
+    <div class="nav-brand">
+      <span class="brand-accent">CCS</span> Sit-in Monitoring System
+    </div>
+    <ul class="nav-links">
+      <li><a href="#">Home</a></li>
+      <li><a href="#" onclick="showPage('aboutPage'); return false;">About</a></li>
+      <li><a href="#" class="active">Login</a></li>
+      <li><a href="#" class="nav-register" onclick="showPage('registerPage'); return false;">Register</a></li>
+    </ul>
+  </nav>
+  <main class="main-container">
+    <div class="logo-side">
+      <div class="logo-backdrop"></div>
+      <img src="ccs.webp" alt="CCS Logo"/>
+      <p class="logo-tagline">College of Computer Studies</p>
+    </div>
+    <div class="vertical-divider"></div>
+    <div class="form-side">
+      <div class="form-card">
+        <h2 class="form-title">Welcome</h2>
+        <p class="form-subtitle">Sign in to continue</p>
+        <div class="form-group">
+          <label for="loginId" class="form-label">ID Number</label>
+          <input type="text" id="loginId" class="form-input" placeholder="Enter your ID number"/>
+        </div>
+        <div class="form-group">
+          <label for="loginPass" class="form-label">Password</label>
+          <div class="input-wrapper">
+            <input type="password" id="loginPass" class="form-input" placeholder="Enter your password"/>
+            <span class="eye-icon" onclick="togglePassword('loginPass', this)">&#128065;</span>
+          </div>
+        </div>
+        <button class="login-btn" onclick="doLogin()">Sign In</button>
+        <p class="register-text">
+          Don't have an account?
+          <a href="#" class="register-link" onclick="showPage('registerPage'); return false;">Create one</a>
+        </p>
+      </div>
+    </div>
+  </main>
+</div>
+
+<!-- ===== ABOUT PAGE ===== -->
+<div id="aboutPage" class="page">
+  <nav class="navbar">
+    <div class="nav-brand">
+      <span class="brand-accent">CCS</span> Sit-in Monitoring System
+    </div>
+    <ul class="nav-links">
+      <li><a href="#" onclick="showPage('loginPage'); return false;">Home</a></li>
+      <li><a href="#" class="active">About</a></li>
+      <li><a href="#" onclick="showPage('loginPage'); return false;">Login</a></li>
+      <li><a href="#" class="nav-register" onclick="showPage('registerPage'); return false;">Register</a></li>
+    </ul>
+  </nav>
+  <main class="about-wrapper">
+    <div class="about-box">
+      <div class="about-header">
+        <img src="ccs.webp" alt="CCS Logo" class="about-logo"/>
+        <div class="about-title-block">
+          <h2 class="about-title">About the System</h2>
+          <p class="about-sub">CCS Sit-in Monitoring System</p>
+        </div>
+      </div>
+      <div class="about-divider"></div>
+      <div class="about-section">
+        <h3 class="about-section-title">📌 Overview</h3>
+        <p class="about-text">
+          The CCS Sit-in Monitoring System is a web-based application developed for the
+          College of Computer Studies at the University of Cebu. It is designed to
+          efficiently manage and monitor student sit-in sessions in the computer laboratories.
+        </p>
+      </div>
+      <div class="about-section">
+        <h3 class="about-section-title">🎯 Purpose</h3>
+        <p class="about-text">
+          The system aims to replace manual logbook recording with a digital solution
+          that tracks student attendance, manages laboratory usage, and provides
+          administrators with real-time data and reports on sit-in activities.
+        </p>
+      </div>
+      <div class="about-section">
+        <h3 class="about-section-title">⚙️ Key Features</h3>
+        <ul class="about-list">
+          <li>Student registration and login system</li>
+          <li>Real-time sit-in session monitoring</li>
+          <li>Laboratory usage tracking per programming language</li>
+          <li>Admin dashboard with statistics and charts</li>
+          <li>Announcement posting for students</li>
+          <li>Sit-in session reports and feedback management</li>
+          <li>Lab reservation system</li>
+        </ul>
+      </div>
+      <div class="about-section">
+        <h3 class="about-section-title">🏫 Institution</h3>
+        <p class="about-text">
+          <strong>University of Cebu</strong><br/>
+          College of Computer Studies<br/>
+          <em>Inceptum. Innovatio. Muneris</em> — Est. 1983
+        </p>
+      </div>
+      <div class="about-divider"></div>
+      <div class="about-footer">
+        <p>© 2024 College of Computer Studies — University of Cebu. All rights reserved.</p>
+        <a href="#" class="back-to-login" onclick="showPage('loginPage'); return false;">← Back to Login</a>
+      </div>
+    </div>
+  </main>
+</div>
+
+<!-- ===== REGISTER PAGE ===== -->
+<div id="registerPage" class="page">
+  <nav class="navbar">
+    <div class="nav-brand">
+      <span class="brand-accent">CCS</span> Sit-in Monitoring System
+    </div>
+    <ul class="nav-links">
+      <li><a href="#" onclick="showPage('loginPage'); return false;">Home</a></li>
+      <li><a href="#" onclick="showPage('aboutPage'); return false;">About</a></li>
+      <li><a href="#" onclick="showPage('loginPage'); return false;">Login</a></li>
+      <li><a href="#" class="nav-register active-reg">Register</a></li>
+    </ul>
+  </nav>
+  <main class="register-wrapper">
+    <div class="register-box">
+      <div class="register-header">
+        <a href="#" class="back-btn" onclick="showPage('loginPage'); return false;">Back</a>
+        <div class="register-title-block">
+          <h2 class="signup-title">Create Account</h2>
+        </div>
+      </div>
+      <form id="registerForm" class="register-form">
+        <div class="form-group full">
+          <label class="form-label">ID Number</label>
+          <input type="text" id="regId" class="form-input" placeholder="e.g. 202300001" inputmode="numeric" oninput="this.value = this.value.replace(/[^0-9]/g, '')" required>
+        </div>
+        <div class="form-row">
+          <div class="form-group">
+            <label class="form-label">Last Name</label>
+            <input type="text" id="regLast" class="form-input" required>
+          </div>
+          <div class="form-group">
+            <label class="form-label">First Name</label>
+            <input type="text" id="regFirst" class="form-input" required>
+          </div>
+        </div>
+        <div class="form-row">
+          <div class="form-group">
+            <label class="form-label">Middle Name</label>
+            <input type="text" id="regMiddle" class="form-input">
+          </div>
+          <div class="form-group">
+            <label class="form-label">Year Level</label>
+            <select id="regLevel" class="form-input" required>
+              <option value="">Year Level</option>
+              <option>1</option><option>2</option><option>3</option><option>4</option><option>5</option>
+            </select>
+          </div>
+        </div>
+        <div class="form-row">
+          <div class="form-group">
+            <label class="form-label">Password</label>
+            <input type="password" id="regPass" class="form-input" required>
+          </div>
+          <div class="form-group">
+            <label class="form-label">Repeat Password</label>
+            <input type="password" id="regRepeatPass" class="form-input" required>
+          </div>
+        </div>
+        <div class="form-group full">
+          <label class="form-label">Email</label>
+          <input type="email" id="regEmail" class="form-input" required>
+        </div>
+        <div class="form-group full">
+          <label class="form-label">Course</label>
+          <select id="regCourse" class="form-input" required>
+            <option value="">Select Course</option>
+            <option>Information Technology</option>
+            <option>Computer Engineering</option>
+            <option>Civil Engineering</option>
+            <option>Mechanical Engineering</option>
+            <option>Electrical Engineering</option>
+            <option>Industrial Engineering</option>
+            <option>Naval Architecture and Marine Engineering</option>
+            <option>Elementary Education (BEEd)</option>
+            <option>Secondary Education (BSEd)</option>
+            <option>Criminology</option>
+            <option>Commerce</option>
+            <option>Accountancy</option>
+            <option>Hotel and Restaurant Management</option>
+            <option>Customs Administration</option>
+            <option>Computer Secretarial</option>
+            <option>Industrial Psychology</option>
+            <option>AB Political Science</option>
+            <option>AB English</option>
+            <option>CISCO Networking Academy (Module 1 - 4)</option>
+            <option>English Communication Skills</option>
+            <option>Conversational Korean</option>
+          </select>
+        </div>
+        <div class="form-group full">
+          <label class="form-label">Address</label>
+          <input type="text" id="regAddress" class="form-input">
+        </div>
+        <button type="submit" class="register-btn">Create Account</button>
+      </form>
+    </div>
+  </main>
+</div>
+
+<!-- ===================================================
+     REPLACE your existing <div id="studentPage"> block
+     in index.html with this entire block below
+     =================================================== -->
+
+<div id="studentPage" class="page">
+  <nav class="admin-navbar">
+    <div class="admin-brand">
+      <img src="ccs.webp" alt="CCS" style="height:32px;border-radius:6px;"> 
+      College of Computer Studies — Student Portal
+    </div>
+    <ul class="admin-nav">
+      <li><a onclick="showStudentTab('tabDashboard')"   class="admin-link active-tab" id="sNav-tabDashboard">Dashboard</a></li>
+      <li><a onclick="showStudentTab('tabHistory')"     class="admin-link"            id="sNav-tabHistory">History</a></li>
+      <li><a onclick="showStudentTab('tabReservation')" class="admin-link"            id="sNav-tabReservation">Reservation</a></li>
+      <li><a onclick="showStudentTab('tabEditProfile')" class="admin-link"            id="sNav-tabEditProfile">Edit Profile</a></li>
+      <li><a onclick="doLogout()" class="admin-logout">Log out</a></li>
+    </ul>
+  </nav>
+
+  <div class="admin-body">
+
+    <!-- ══ DASHBOARD TAB ══ -->
+    <div id="tabDashboard" class="admin-tab">
+      <div class="dash-grid" style="grid-template-columns:300px 1fr;gap:20px;">
+
+        <!-- My Profile Card -->
+        <div class="dash-card">
+          <div class="dash-card-head">👤 My Profile</div>
+          <div class="dash-card-body" style="display:flex;flex-direction:column;align-items:center;gap:14px;">
+            <div style="position:relative;width:110px;height:110px;">
+              <img id="profilePicDisplay"
+                src="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'%3E%3Ccircle cx='50' cy='50' r='50' fill='%23e8e0ff'/%3E%3Ccircle cx='50' cy='38' r='18' fill='%239b6fe8'/%3E%3Cellipse cx='50' cy='85' rx='28' ry='20' fill='%239b6fe8'/%3E%3C/svg%3E"
+                style="width:110px;height:110px;border-radius:50%;object-fit:cover;border:3px solid #d4a017;box-shadow:0 4px 16px rgba(108,63,199,0.3);">
+              <label for="picUpload" style="position:absolute;bottom:4px;right:4px;background:#d4a017;border-radius:50%;width:28px;height:28px;display:flex;align-items:center;justify-content:center;cursor:pointer;font-size:0.85rem;" title="Change photo">📷</label>
+              <input type="file" id="picUpload" accept="image/*" style="display:none;" onchange="uploadProfilePic(this)">
+            </div>
+            <div style="text-align:center;width:100%;">
+              <div style="font-family:'Playfair Display',serif;font-size:1.1rem;font-weight:700;color:#2d1b69;" id="profileName"></div>
+              <div style="font-size:0.82rem;color:#7c6fa0;margin-top:2px;" id="profileCourse"></div>
+            </div>
+            <div style="width:100%;border-top:1px solid #eee;padding-top:12px;display:flex;flex-direction:column;gap:8px;">
+              <div style="display:flex;align-items:flex-start;gap:10px;font-size:0.84rem;">
+                <span style="font-size:1rem;min-width:20px;text-align:center;">🪪</span>
+                <div style="flex:1;min-width:0;">
+                  <div style="color:#8272b0;font-size:0.72rem;font-weight:600;letter-spacing:0.04em;text-transform:uppercase;">ID Number</div>
+                  <div style="color:#2d1b69;font-weight:700;" id="stuId"></div>
+                </div>
+              </div>
+              <div style="display:flex;align-items:flex-start;gap:10px;font-size:0.84rem;">
+                <span style="font-size:1rem;min-width:20px;text-align:center;">🎓</span>
+                <div style="flex:1;min-width:0;">
+                  <div style="color:#8272b0;font-size:0.72rem;font-weight:600;letter-spacing:0.04em;text-transform:uppercase;">Year Level</div>
+                  <div style="color:#2d1b69;font-weight:700;" id="stuLevel"></div>
+                </div>
+              </div>
+              <div style="display:flex;align-items:flex-start;gap:10px;font-size:0.84rem;">
+                <span style="font-size:1rem;min-width:20px;text-align:center;">✉️</span>
+                <div style="flex:1;min-width:0;">
+                  <div style="color:#8272b0;font-size:0.72rem;font-weight:600;letter-spacing:0.04em;text-transform:uppercase;">Email</div>
+                  <div style="color:#2d1b69;font-weight:700;word-break:break-all;" id="stuEmail"></div>
+                </div>
+              </div>
+              <div style="display:flex;align-items:flex-start;gap:10px;font-size:0.84rem;">
+                <span style="font-size:1rem;min-width:20px;text-align:center;">📍</span>
+                <div style="flex:1;min-width:0;">
+                  <div style="color:#8272b0;font-size:0.72rem;font-weight:600;letter-spacing:0.04em;text-transform:uppercase;">Address</div>
+                  <div style="color:#2d1b69;font-weight:700;" id="stuAddress"></div>
+                </div>
+              </div>
+              <div style="display:flex;align-items:flex-start;gap:10px;font-size:0.84rem;background:linear-gradient(135deg,#f3f0ff,#ede8ff);border-radius:8px;padding:8px 10px;margin-top:4px;">
+                <span style="font-size:1rem;min-width:20px;text-align:center;">⏳</span>
+                <div style="flex:1;min-width:0;">
+                  <div style="color:#8272b0;font-size:0.72rem;font-weight:600;letter-spacing:0.04em;text-transform:uppercase;">Remaining Sessions</div>
+                  <div style="color:#6c3fc7;font-weight:800;font-size:1.2rem;" id="stuSessions"></div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Right column: Announcements + Lab Rules stacked -->
+        <div style="display:flex;flex-direction:column;gap:20px;">
+
+          <!-- Announcements -->
+          <div class="dash-card">
+            <div class="dash-card-head">📢 Announcements</div>
+            <div class="dash-card-body" style="max-height:220px;overflow-y:auto;">
+              <div id="studentAnnContainer">
+                <p style="color:#888;font-size:0.85rem;">No announcements yet.</p>
+              </div>
+            </div>
+          </div>
+
+          <!-- Lab Rules & Regulations -->
+          <div class="dash-card">
+            <div class="dash-card-head">📋 Laboratory Rules &amp; Regulations</div>
+            <div class="dash-card-body" style="max-height:260px;overflow-y:auto;">
+              <div style="text-align:center;margin-bottom:10px;">
+                <strong style="font-size:0.88rem;color:#2d1b69;">University of Cebu</strong><br>
+                <span style="font-size:0.78rem;color:#7c6fa0;">COLLEGE OF INFORMATION &amp; COMPUTER STUDIES</span><br>
+                <span style="font-size:0.77rem;font-weight:700;color:#2d1b69;letter-spacing:0.05em;">LABORATORY RULES AND REGULATIONS</span>
+              </div>
+              <p style="font-size:0.8rem;color:#555;margin-bottom:8px;">
+                To avoid embarrassment and maintain camaraderie with your friends and superiors at our laboratories, please observe the following:
+              </p>
+              <ol style="font-size:0.8rem;color:#444;padding-left:18px;display:flex;flex-direction:column;gap:6px;">
+                <li>Maintain silence, proper decorum, and discipline inside the laboratory. Mobile phones, walkmans and other personal pieces of equipment must be switched off.</li>
+                <li>Games are not allowed inside the lab. This includes computer-related games, card games and other games that may disturb the operation of the lab.</li>
+                <li>Surfing the Internet is allowed only with the permission of the instructor. Downloading and installing of software are strictly prohibited.</li>
+                <li>Getting access to other websites not related to the course is strictly prohibited.</li>
+                <li>Deleting computer files and changing the computer settings are not allowed.</li>
+                <li>Observe computer time. All requests must be done 5 minutes before time.</li>
+                <li>No food and drinks allowed inside the laboratory.</li>
+                <li>Students are held responsible for any damage to computer equipment caused by their negligence.</li>
+                <li>Laboratory entrance is limited to students with proper laboratory attire.</li>
+                <li>Only authorized persons are allowed to operate and handle laboratory equipment.</li>
+              </ol>
+            </div>
+          </div>
+
+        </div><!-- end right column -->
+      </div><!-- end dash-grid -->
+    </div><!-- end tabDashboard -->
+
+
+    <!-- ══ HISTORY TAB ══ -->
+    <div id="tabHistory" class="admin-tab" style="display:none;">
+      <h2 class="tab-title">Sit-in History</h2>
+      <div class="dash-card" style="max-width:1000px;">
+        <div class="dash-card-head">📜 History Information</div>
+        <div class="dash-card-body">
+          <div class="table-topbar">
+            <div class="table-left">
+              <select class="entries-sel" id="histEntries" onchange="renderHistoryTable()">
+                <option>10</option><option>25</option><option>50</option>
+              </select>
+              <span class="entries-lbl">entries per page</span>
+            </div>
+            <div class="table-right">
+              <span class="entries-lbl">Search:</span>
+              <input type="text" class="tbl-search" id="histSearch" oninput="renderHistoryTable()">
+            </div>
+          </div>
+          <table class="data-tbl">
+            <thead>
+              <tr>
+                <th>Sit ID</th>
+                <th>Purpose</th>
+                <th>Laboratory</th>
+                <th>Login</th>
+                <th>Logout</th>
+                <th>Status</th>
+              </tr>
+            </thead>
+            <tbody id="historyBody"></tbody>
+          </table>
+          <div id="histInfo" class="tbl-info" style="margin-top:8px;font-size:0.8rem;color:#888;"></div>
+        </div>
+      </div>
+    </div><!-- end tabHistory -->
+
+
+    <!-- ══ RESERVATION TAB ══ -->
+    <div id="tabReservation" class="admin-tab" style="display:none;">
+      <h2 class="tab-title">Lab Reservation</h2>
+      <div class="dash-card" style="max-width:680px;">
+        <div class="dash-card-head">📅 Reserve a Laboratory Slot</div>
+        <div class="dash-card-body">
+
+          <div id="reservationMsg" style="display:none;margin-bottom:12px;padding:10px 14px;border-radius:8px;font-size:0.86rem;"></div>
+
+          <!-- Read-only info -->
+          <div style="display:grid;grid-template-columns:1fr 1fr;gap:14px;margin-bottom:14px;">
+            <div>
+              <label class="modal-field-label">ID Number</label>
+              <input type="text" id="resStudentId" class="form-input" readonly style="background:#f5f3ff;color:#8272b0;cursor:not-allowed;">
+            </div>
+            <div>
+              <label class="modal-field-label">Student Name</label>
+              <input type="text" id="resStudentName" class="form-input" readonly style="background:#f5f3ff;color:#8272b0;cursor:not-allowed;">
+            </div>
+          </div>
+
+          <!-- Purpose -->
+          <div style="margin-bottom:14px;">
+            <label class="modal-field-label">Purpose <span style="color:#e74c3c;">*</span></label>
+            <select id="resPurpose" class="form-input">
+              <option value="">Select Purpose</option>
+              <option>C# Programming</option>
+              <option>C Programming</option>
+              <option>Java Programming</option>
+              <option>ASP.Net Programming</option>
+              <option>PHP Programming</option>
+              <option>Research</option>
+            </select>
+          </div>
+
+          <!-- Lab -->
+          <div style="margin-bottom:14px;">
+            <label class="modal-field-label">Laboratory <span style="color:#e74c3c;">*</span></label>
+            <input type="text" id="resLab" class="form-input" placeholder="e.g. 524">
+          </div>
+
+          <!-- Date + Time -->
+          <div style="display:grid;grid-template-columns:1fr 1fr;gap:14px;margin-bottom:14px;">
+            <div>
+              <label class="modal-field-label">Date <span style="color:#e74c3c;">*</span></label>
+              <input type="date" id="resDate" class="form-input">
+            </div>
+            <div>
+              <label class="modal-field-label">Time In <span style="color:#e74c3c;">*</span></label>
+              <input type="time" id="resTime" class="form-input">
+            </div>
+          </div>
+
+          <!-- Remaining Sessions -->
+          <div style="margin-bottom:20px;">
+            <label class="modal-field-label">Remaining Sessions</label>
+            <input type="text" id="resSessions" class="form-input" readonly style="background:#f5f3ff;color:#6c3fc7;font-weight:700;cursor:not-allowed;">
+          </div>
+
+          <button class="btn-blue" onclick="submitReservation()" style="padding:10px 28px;font-size:0.92rem;">📅 Reserve</button>
+        </div>
+      </div>
+    </div><!-- end tabReservation -->
+
+
+    <!-- ══ EDIT PROFILE TAB ══ -->
+    <div id="tabEditProfile" class="admin-tab" style="display:none;">
+      <h2 class="tab-title">Edit Profile</h2>
+
+      <div style="display:flex;flex-direction:row;gap:22px;max-width:1040px;margin:0 auto;align-items:flex-start;width:100%;">
+
+        <!-- LEFT: Profile Summary -->
+        <div style="width:260px;min-width:260px;background:#fff;border-radius:12px;overflow:hidden;box-shadow:0 4px 20px rgba(108,63,199,0.13);border:1px solid #e0d8ff;flex-shrink:0;">
+          <div style="background:#2d1b69;color:#fff;font-size:0.72rem;font-weight:700;letter-spacing:0.09em;padding:11px 16px;">PROFILE SUMMARY</div>
+          <div style="padding:20px 16px;display:flex;flex-direction:column;align-items:center;gap:14px;">
+            <div style="width:110px;height:110px;border-radius:50%;overflow:hidden;border:3px solid #d4a017;box-shadow:0 4px 16px rgba(108,63,199,0.2);">
+              <img id="editPicDisplay"
+                src="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'%3E%3Ccircle cx='50' cy='50' r='50' fill='%23e8e0ff'/%3E%3Ccircle cx='50' cy='38' r='18' fill='%239b6fe8'/%3E%3Cellipse cx='50' cy='85' rx='28' ry='20' fill='%239b6fe8'/%3E%3C/svg%3E"
+                width="110" height="110" style="width:110px;height:110px;object-fit:cover;display:block;border-radius:50%;">
+            </div>
+            <div style="width:100%;border-top:1px solid #ede8ff;padding-top:12px;display:flex;flex-direction:column;gap:10px;">
+              <div style="display:flex;align-items:flex-start;gap:9px;">
+                <span style="font-size:0.95rem;min-width:20px;text-align:center;margin-top:1px;">&#128282;</span>
+                <div style="flex:1;min-width:0;">
+                  <div style="color:#a090c0;font-size:0.68rem;font-weight:700;letter-spacing:0.05em;text-transform:uppercase;">ID Number</div>
+                  <div style="color:#2d1b69;font-weight:700;font-size:0.83rem;" id="summaryId">&#8212;</div>
+                </div>
+              </div>
+              <div style="display:flex;align-items:flex-start;gap:9px;">
+                <span style="font-size:0.95rem;min-width:20px;text-align:center;margin-top:1px;">&#128100;</span>
+                <div style="flex:1;min-width:0;">
+                  <div style="color:#a090c0;font-size:0.68rem;font-weight:700;letter-spacing:0.05em;text-transform:uppercase;">Name</div>
+                  <div style="color:#2d1b69;font-weight:700;font-size:0.83rem;word-break:break-word;" id="summaryName">&#8212;</div>
+                </div>
+              </div>
+              <div style="display:flex;align-items:flex-start;gap:9px;">
+                <span style="font-size:0.95rem;min-width:20px;text-align:center;margin-top:1px;">&#128218;</span>
+                <div style="flex:1;min-width:0;">
+                  <div style="color:#a090c0;font-size:0.68rem;font-weight:700;letter-spacing:0.05em;text-transform:uppercase;">Course</div>
+                  <div style="color:#2d1b69;font-weight:700;font-size:0.83rem;word-break:break-word;" id="summaryCourse">&#8212;</div>
+                </div>
+              </div>
+              <div style="display:flex;align-items:flex-start;gap:9px;">
+                <span style="font-size:0.95rem;min-width:20px;text-align:center;margin-top:1px;">&#127891;</span>
+                <div style="flex:1;min-width:0;">
+                  <div style="color:#a090c0;font-size:0.68rem;font-weight:700;letter-spacing:0.05em;text-transform:uppercase;">Year Level</div>
+                  <div style="color:#2d1b69;font-weight:700;font-size:0.83rem;" id="summaryLevel">&#8212;</div>
+                </div>
+              </div>
+              <div style="display:flex;align-items:flex-start;gap:9px;background:linear-gradient(135deg,#f3f0ff,#ede8ff);border-radius:8px;padding:8px 10px;">
+                <span style="font-size:0.95rem;min-width:20px;text-align:center;margin-top:1px;">&#9203;</span>
+                <div style="flex:1;min-width:0;">
+                  <div style="color:#a090c0;font-size:0.68rem;font-weight:700;letter-spacing:0.05em;text-transform:uppercase;">Sessions Left</div>
+                  <div style="color:#6c3fc7;font-weight:800;font-size:1.1rem;" id="summarySessions">&#8212;</div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- RIGHT: Update Details -->
+        <div style="flex:1;min-width:0;background:#fff;border-radius:12px;overflow:hidden;box-shadow:0 4px 20px rgba(108,63,199,0.13);border:1px solid #e0d8ff;">
+          <div style="background:#2d1b69;color:#fff;font-size:0.72rem;font-weight:700;letter-spacing:0.09em;padding:11px 22px;">UPDATE PROFILE DETAILS</div>
+          <div style="padding:20px 22px 24px;max-height:78vh;overflow-y:auto;">
+
+            <div id="profileUpdateMsg" style="display:none;background:#d4edda;color:#155724;border:1px solid #c3e6cb;border-radius:8px;padding:10px 14px;font-size:0.86rem;margin-bottom:12px;">✓ Profile updated successfully!</div>
+
+            <!-- Profile Picture Upload -->
+            <div style="font-size:0.68rem;font-weight:700;letter-spacing:0.07em;color:#8272b0;margin-bottom:6px;">CHANGE PROFILE PICTURE</div>
+            <label for="editPicUpload" style="display:flex;align-items:center;gap:10px;cursor:pointer;margin-bottom:4px;">
+              <input type="file" id="editPicUpload" accept="image/*" style="display:none;" onchange="uploadProfilePic(this)">
+              <span style="padding:5px 14px;border:1px solid #ccc;border-radius:6px;font-size:0.8rem;background:#f0f0f0;color:#333;white-space:nowrap;">Choose File</span>
+              <span id="editPicName" style="font-size:0.8rem;color:#8272b0;">No file chosen</span>
+            </label>
+
+            <!-- ID read-only -->
+            <div style="font-size:0.68rem;font-weight:700;letter-spacing:0.07em;color:#8272b0;margin-top:12px;margin-bottom:4px;">ID NUMBER (READ-ONLY)</div>
+            <div style="position:relative;">
+              <span style="position:absolute;top:50%;left:10px;transform:translateY(-50%);font-size:0.82rem;pointer-events:none;">🔒</span>
+              <input type="text" id="epId" readonly style="width:100%;box-sizing:border-box;padding:9px 13px 9px 32px;border:1.5px solid #e0d8ff;border-radius:8px;font-size:0.88rem;font-family:'DM Sans',sans-serif;color:#8272b0;background:#f5f3ff;cursor:not-allowed;outline:none;">
+            </div>
+
+            <!-- First + Last Name -->
+            <div style="display:flex;gap:14px;margin-top:4px;">
+              <div style="flex:1;min-width:0;">
+                <div style="font-size:0.68rem;font-weight:700;letter-spacing:0.07em;color:#8272b0;margin-top:12px;margin-bottom:4px;">FIRST NAME <span style="color:#e74c3c;">*</span></div>
+                <input type="text" id="epFirst" placeholder="First Name" style="width:100%;box-sizing:border-box;padding:9px 13px;border:1.5px solid #e0d8ff;border-radius:8px;font-size:0.88rem;font-family:'DM Sans',sans-serif;color:#1e1240;background:#fff;outline:none;">
+              </div>
+              <div style="flex:1;min-width:0;">
+                <div style="font-size:0.68rem;font-weight:700;letter-spacing:0.07em;color:#8272b0;margin-top:12px;margin-bottom:4px;">LAST NAME <span style="color:#e74c3c;">*</span></div>
+                <input type="text" id="epLast" placeholder="Last Name" style="width:100%;box-sizing:border-box;padding:9px 13px;border:1.5px solid #e0d8ff;border-radius:8px;font-size:0.88rem;font-family:'DM Sans',sans-serif;color:#1e1240;background:#fff;outline:none;">
+              </div>
+            </div>
+
+            <!-- Middle Name -->
+            <div style="font-size:0.68rem;font-weight:700;letter-spacing:0.07em;color:#8272b0;margin-top:12px;margin-bottom:4px;">MIDDLE NAME</div>
+            <input type="text" id="epMiddle" placeholder="Middle Name" style="width:100%;box-sizing:border-box;padding:9px 13px;border:1.5px solid #e0d8ff;border-radius:8px;font-size:0.88rem;font-family:'DM Sans',sans-serif;color:#1e1240;background:#fff;outline:none;">
+
+            <!-- Course + Year Level -->
+            <div style="display:flex;gap:14px;">
+              <div style="flex:2;min-width:0;">
+                <div style="font-size:0.68rem;font-weight:700;letter-spacing:0.07em;color:#8272b0;margin-top:12px;margin-bottom:4px;">COURSE <span style="color:#e74c3c;">*</span></div>
+                <select id="epCourse" style="width:100%;box-sizing:border-box;padding:9px 13px;border:1.5px solid #e0d8ff;border-radius:8px;font-size:0.88rem;font-family:'DM Sans',sans-serif;color:#1e1240;background:#fff;outline:none;">
+                  <option value="">Select Course</option>
+                  <option>Information Technology</option>
+                  <option>Computer Engineering</option>
+                  <option>Civil Engineering</option>
+                  <option>Mechanical Engineering</option>
+                  <option>Electrical Engineering</option>
+                  <option>Industrial Engineering</option>
+                  <option>Naval Architecture and Marine Engineering</option>
+                  <option>Elementary Education (BEEd)</option>
+                  <option>Secondary Education (BSEd)</option>
+                  <option>Criminology</option>
+                  <option>Commerce</option>
+                  <option>Accountancy</option>
+                  <option>Hotel and Restaurant Management</option>
+                  <option>Customs Administration</option>
+                  <option>Computer Secretarial</option>
+                  <option>Industrial Psychology</option>
+                  <option>AB Political Science</option>
+                  <option>AB English</option>
+                  <option>CISCO Networking Academy (Module 1 - 4)</option>
+                  <option>English Communication Skills</option>
+                  <option>Conversational Korean</option>
+                </select>
+              </div>
+              <div style="flex:1;min-width:0;">
+                <div style="font-size:0.68rem;font-weight:700;letter-spacing:0.07em;color:#8272b0;margin-top:12px;margin-bottom:4px;">YEAR LEVEL</div>
+                <input type="number" id="epLevel" min="1" max="5" placeholder="e.g. 2" style="width:100%;box-sizing:border-box;padding:9px 13px;border:1.5px solid #e0d8ff;border-radius:8px;font-size:0.88rem;font-family:'DM Sans',sans-serif;color:#1e1240;background:#fff;outline:none;">
+              </div>
+            </div>
+
+            <!-- Email -->
+            <div style="font-size:0.68rem;font-weight:700;letter-spacing:0.07em;color:#8272b0;margin-top:12px;margin-bottom:4px;">EMAIL ADDRESS <span style="color:#e74c3c;">*</span></div>
+            <input type="email" id="editEmail" placeholder="email@example.com" style="width:100%;box-sizing:border-box;padding:9px 13px;border:1.5px solid #e0d8ff;border-radius:8px;font-size:0.88rem;font-family:'DM Sans',sans-serif;color:#1e1240;background:#fff;outline:none;">
+
+            <!-- Address -->
+            <div style="font-size:0.68rem;font-weight:700;letter-spacing:0.07em;color:#8272b0;margin-top:12px;margin-bottom:4px;">ADDRESS</div>
+            <input type="text" id="editAddress" placeholder="Enter your address" style="width:100%;box-sizing:border-box;padding:9px 13px;border:1.5px solid #e0d8ff;border-radius:8px;font-size:0.88rem;font-family:'DM Sans',sans-serif;color:#1e1240;background:#fff;outline:none;">
+
+            <!-- New Password -->
+            <div style="font-size:0.68rem;font-weight:700;letter-spacing:0.07em;color:#8272b0;margin-top:12px;margin-bottom:4px;">NEW PASSWORD <small style="font-size:0.72rem;color:#aaa;font-weight:400;text-transform:none;">(leave blank to keep current)</small></div>
+            <input type="password" id="editPassword" placeholder="Enter new password" style="width:100%;box-sizing:border-box;padding:9px 13px;border:1.5px solid #e0d8ff;border-radius:8px;font-size:0.88rem;font-family:'DM Sans',sans-serif;color:#1e1240;background:#fff;outline:none;">
+
+            <!-- Confirm Password -->
+            <div style="font-size:0.68rem;font-weight:700;letter-spacing:0.07em;color:#8272b0;margin-top:12px;margin-bottom:4px;">CONFIRM NEW PASSWORD</div>
+            <input type="password" id="editPasswordConfirm" placeholder="Confirm new password" style="width:100%;box-sizing:border-box;padding:9px 13px;border:1.5px solid #e0d8ff;border-radius:8px;font-size:0.88rem;font-family:'DM Sans',sans-serif;color:#1e1240;background:#fff;outline:none;">
+
+            <!-- Buttons -->
+            <div style="display:flex;gap:12px;margin-top:20px;">
+              <button class="btn-blue" onclick="saveProfile()" style="padding:10px 26px;font-size:0.9rem;">💾 Save Changes</button>
+              <button class="btn-gray" onclick="showStudentTab('tabDashboard')" style="padding:10px 20px;font-size:0.9rem;">Cancel</button>
+            </div>
+
+          </div>
+        </div>
+
+      </div>
+    </div><!-- end tabEditProfile -->
+
+  </div><!-- end admin-body -->
+</div><!-- end studentPage -->
+
+<!-- ===== ADMIN PAGE ===== -->
+<div id="adminPage" class="page">
+  <nav class="admin-navbar">
+    <div class="admin-brand">College of Computer Studies Admin</div>
+    <ul class="admin-nav">
+      <li><a onclick="showAdminTab('tabHome')" class="admin-link active-tab">Home</a></li>
+      <li><a onclick="openSearchModal()" class="admin-link">Search</a></li>
+      <li><a onclick="showAdminTab('tabStudents')" class="admin-link">Students</a></li>
+      <li><a onclick="openSitInModal()" class="admin-link">Sit-in</a></li>
+      <li><a onclick="showAdminTab('tabViewSitin')" class="admin-link">View Sit-in Records</a></li>
+      <li><a onclick="showAdminTab('tabReports')" class="admin-link">Sit-in Reports</a></li>
+      <li><a onclick="showAdminTab('tabFeedback')" class="admin-link">Feedback Reports</a></li>
+      <li><a onclick="showAdminTab('tabReservation')" class="admin-link">Reservation</a></li>
+      <li><a onclick="doLogout()" class="admin-logout">Log out</a></li>
+    </ul>
+  </nav>
+  <div class="admin-body">
+
+    <!-- HOME TAB -->
+    <div id="tabHome" class="admin-tab">
+      <div class="dash-grid">
+        <div class="dash-card">
+          <div class="dash-card-head">📊 Statistics</div>
+          <div class="dash-card-body">
+            <p class="stat-row">Students Registered: <strong id="statRegistered">0</strong></p>
+            <p class="stat-row">Currently Sit-in: <strong id="statCurrent">0</strong></p>
+            <p class="stat-row">Total Sit-in: <strong id="statTotal">0</strong></p>
+            <canvas id="purposeChart" style="margin-top:16px;max-height:220px;"></canvas>
+          </div>
+        </div>
+        <div class="dash-card">
+          <div class="dash-card-head">📢 Announcement</div>
+          <div class="dash-card-body">
+            <textarea id="annInput" class="ann-input" placeholder="New Announcement"></textarea>
+            <button class="btn-green" onclick="postAnnouncement()">Submit</button>
+            <div class="ann-list">
+              <h4 class="ann-title">Posted Announcement</h4>
+              <div id="annContainer"></div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- STUDENTS TAB -->
+    <div id="tabStudents" class="admin-tab" style="display:none;">
+      <h2 class="tab-title">Students Information</h2>
+      <div class="table-topbar">
+        <div class="table-left">
+          <button class="btn-blue" onclick="openAddStudentModal()">Add Students</button>
+          <button class="btn-red" onclick="resetAllSessions()">Reset All Session</button>
+          <select class="entries-sel" id="studEntries" onchange="renderStudents()">
+            <option>10</option><option>25</option><option>50</option>
+          </select>
+          <span class="entries-lbl">entries per page</span>
+        </div>
+        <div class="table-right">
+          <span class="entries-lbl">Search:</span>
+          <input type="text" class="tbl-search" id="studSearch" oninput="renderStudents()">
+        </div>
+      </div>
+      <table class="data-tbl">
+        <thead>
+          <tr>
+            <th>ID Number</th><th>Name</th><th>Year Level</th>
+            <th>Course</th><th>Remaining Session</th><th>Actions</th>
+          </tr>
+        </thead>
+        <tbody id="studBody"></tbody>
+      </table>
+      <div id="studInfo" class="tbl-info"></div>
+    </div>
+
+    <!-- VIEW SIT-IN TAB -->
+    <div id="tabViewSitin" class="admin-tab" style="display:none;">
+      <h2 class="tab-title">Current Sit in</h2>
+      <div class="table-topbar">
+        <div class="table-left">
+          <select class="entries-sel" id="sitEntries" onchange="renderSitins()">
+            <option>10</option><option>25</option><option>50</option>
+          </select>
+          <span class="entries-lbl">entries per page</span>
+        </div>
+        <div class="table-right">
+          <span class="entries-lbl">Search:</span>
+          <input type="text" class="tbl-search" id="sitSearch" oninput="renderSitins()">
+        </div>
+      </div>
+      <table class="data-tbl">
+        <thead>
+          <tr>
+            <th>Sit ID</th><th>ID Number</th><th>Name</th><th>Purpose</th>
+            <th>Sit Lab</th><th>Session</th><th>Status</th><th>Actions</th>
+          </tr>
+        </thead>
+        <tbody id="sitBody"></tbody>
+      </table>
+      <div id="sitInfo" class="tbl-info"></div>
+    </div>
+
+    <!-- REPORTS TAB -->
+    <div id="tabReports" class="admin-tab" style="display:none;">
+      <h2 class="tab-title">Sit-in Reports</h2>
+      <div class="dash-card" style="max-width:860px;margin:0 auto;">
+        <div class="dash-card-body">
+          <canvas id="reportsChart" style="max-height:300px;"></canvas>
+        </div>
+      </div>
+    </div>
+
+    <!-- FEEDBACK TAB -->
+    <div id="tabFeedback" class="admin-tab" style="display:none;">
+      <h2 class="tab-title">Feedback Reports</h2>
+      <div class="dash-card" style="max-width:860px;margin:0 auto;">
+        <div class="dash-card-head">📋 Student Feedback</div>
+        <div class="dash-card-body" id="feedbackList">
+          <p style="color:#888;font-size:0.88rem;">No feedback submitted yet.</p>
+        </div>
+      </div>
+    </div>
+
+    <!-- RESERVATION TAB -->
+    <div id="tabReservation" class="admin-tab" style="display:none;">
+      <h2 class="tab-title">Reservation</h2>
+      <div class="dash-card" style="max-width:860px;margin:0 auto;">
+        <div class="dash-card-head">📅 Lab Reservations</div>
+        <div class="dash-card-body">
+          <table class="data-tbl">
+            <thead>
+              <tr><th>ID</th><th>Student ID</th><th>Name</th><th>Lab</th><th>Date</th><th>Time</th><th>Status</th></tr>
+            </thead>
+            <tbody><tr><td colspan="7" style="text-align:center;color:#888;">No reservations yet.</td></tr></tbody>
+          </table>
+        </div>
+      </div>
+    </div>
+
+  </div><!-- end admin-body -->
+
+  <!-- SEARCH MODAL -->
+  <div id="searchModal" class="modal-bg">
+    <div class="modal-box">
+      <button class="modal-x" onclick="closeModal('searchModal')">×</button>
+      <div class="modal-title">Search Student</div>
+      <input type="text" id="searchInput" class="modal-input" placeholder="Search...">
+      <div class="modal-actions">
+        <button class="btn-blue" onclick="searchStudent()">Search</button>
+      </div>
+      <div id="searchResult" style="margin-top:14px;font-size:0.88rem;"></div>
+    </div>
+  </div>
+
+  <!-- SIT-IN MODAL -->
+  <div id="sitInModal" class="modal-bg">
+    <div class="modal-box">
+      <button class="modal-x" onclick="closeModal('sitInModal')">×</button>
+      <div class="modal-title">Sit In Form</div>
+      <div class="modal-field"><label>ID Number:</label><input type="text" id="siId" class="modal-input" readonly></div>
+      <div class="modal-field"><label>Student Name:</label><input type="text" id="siName" class="modal-input" readonly></div>
+      <div class="modal-field">
+        <label>Purpose:</label>
+        <select id="siPurpose" class="modal-input">
+          <option value="">Select Purpose</option>
+          <option>C# Programming</option>
+          <option>C Programming</option>
+          <option>Java Programming</option>
+          <option>ASP.Net Programming</option>
+          <option>PHP Programming</option>
+          <option>Research</option>
+        </select>
+      </div>
+      <div class="modal-field"><label>Lab:</label><input type="text" id="siLab" class="modal-input" placeholder="e.g. 524"></div>
+      <div class="modal-field"><label>Remaining Session:</label><input type="text" id="siSession" class="modal-input" readonly></div>
+      <div class="modal-actions">
+        <button class="btn-gray" onclick="closeModal('sitInModal')">Close</button>
+        <button class="btn-blue" onclick="confirmSitIn()">Sit In</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- ADD/EDIT STUDENT MODAL -->
+  <div id="studentModal" class="modal-bg">
+    <div class="modal-box">
+      <button class="modal-x" onclick="closeModal('studentModal')">×</button>
+      <div class="modal-title" id="studentModalTitle">Add Student</div>
+      <input type="hidden" id="editStudId">
+      <div class="modal-field"><label>ID Number:</label><input type="text" id="sId" class="modal-input"></div>
+      <div style="display:grid;grid-template-columns:1fr 1fr;gap:12px;">
+        <div class="modal-field"><label>Last Name:</label><input type="text" id="sLast" class="modal-input"></div>
+        <div class="modal-field"><label>First Name:</label><input type="text" id="sFirst" class="modal-input"></div>
+      </div>
+      <div style="display:grid;grid-template-columns:1fr 1fr;gap:12px;">
+        <div class="modal-field">
+          <label>Year Level:</label>
+          <select id="sLevel" class="modal-input">
+            <option value="">Select</option>
+            <option>1</option><option>2</option><option>3</option><option>4</option>
+          </select>
+        </div>
+        <div class="modal-field">
+          <label>Course:</label>
+          <select id="sCourse" class="modal-input">
+            <option value="">Select</option>
+            <option>BSIT</option><option>BSCpE</option><option>BSCS</option>
+          </select>
+        </div>
+      </div>
+      <div class="modal-field"><label>Remaining Sessions:</label><input type="number" id="sSessions" class="modal-input" value="30"></div>
+      <div class="modal-actions">
+        <button class="btn-gray" onclick="closeModal('studentModal')">Cancel</button>
+        <button class="btn-blue" onclick="saveStudent()">Save</button>
+      </div>
+    </div>
+  </div>
+
+</div><!-- end adminPage -->
+
+<div id="toast" class="toast"></div>
+<script src="script.js"></script>
+</body>
+</html>
